@@ -1,0 +1,10 @@
+﻿services:
+  coffee.machinehttpapi:
+    image: machine-http-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"

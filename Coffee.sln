@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{23143B63-BDB2-4C1B-B379-C8CDC4BEEFC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0D5E2356-68A7-446A-AC72-658961BD562D}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+		README.md = README.md
+		docker-compose.yml = docker-compose.yml
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D88D2C9-5CB6-47DE-9183-907C724D64D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.MachineHttpApi", "src\Coffee.MachineHttpApi\Coffee.MachineHttpApi.csproj", "{C35EB157-7EA8-422F-8654-C01D7F2F9AE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C35EB157-7EA8-422F-8654-C01D7F2F9AE4} = {0D88D2C9-5CB6-47DE-9183-907C724D64D0}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C35EB157-7EA8-422F-8654-C01D7F2F9AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35EB157-7EA8-422F-8654-C01D7F2F9AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35EB157-7EA8-422F-8654-C01D7F2F9AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35EB157-7EA8-422F-8654-C01D7F2F9AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
