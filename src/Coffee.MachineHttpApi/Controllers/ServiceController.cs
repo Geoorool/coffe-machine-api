@@ -1,3 +1,5 @@
+using MachineHttpApi.Models;
+using MachineHttpApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MachineHttpApi.Controllers;
@@ -6,16 +8,19 @@ namespace MachineHttpApi.Controllers;
 [Route("[controller]")]
 public class ServiceController : Controller
 {
+    private readonly IServiceService _serviceService;
+    public ServiceController(IServiceService serviceService) {
+        _serviceService = serviceService;
+    }
+
     [HttpGet]
-    public IActionResult RemainingProducts() {
-        var info = new { Coffee = 100, Milk = 100, Sugar = 100 };
-        return Ok(info);
+    public async Task<ActionResult<ProductsInfo>> RemainingProducts(CancellationToken token) {
+        return Ok(await _serviceService.Info(token));
     }
     
     [HttpPost]
-    public IActionResult TopUpProducts() {
-        var info = new { Coffee = 100, Milk = 100, Sugar = 100 };
-        return Ok(info);
+    public async Task<ActionResult<ProductsInfo>> TopUpProducts(ProductsTopUpModel products, CancellationToken token) {
+        return Ok(await _serviceService.TopUpProducts(products, token));
     }
     
 }

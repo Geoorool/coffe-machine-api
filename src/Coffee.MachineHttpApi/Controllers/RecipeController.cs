@@ -1,3 +1,5 @@
+using MachineHttpApi.Models;
+using MachineHttpApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MachineHttpApi.Controllers;
@@ -6,34 +8,40 @@ namespace MachineHttpApi.Controllers;
 [Route("[controller]")]
 public class RecipeController : Controller
 {
+    private readonly IRecipeService _recipeService;
+    
+    public RecipeController(IRecipeService recipeService) {
+        _recipeService = recipeService;
+    }
+
     [HttpGet]
-    public IActionResult ListRecipes() {
-        var recipes = new[] {
-            new { Id = 1, Name = "Cappuccino", Milk = 3, Sugar = 5 },
-            new { Id = 2, Name = "Late", Milk = 5, Sugar = 5 }
-        };
-        return Ok(recipes);
+    public async Task<ActionResult<List<Recipe>>> ListRecipes(CancellationToken token) {
+        return Ok(await _recipeService.GetAll(token));
     }
     
     [HttpGet("{id}")]
-    public IActionResult Recipe(int id) {
-        var recipe = new { Id = 2, Name = "Late", Milk = 5, Sugar = 5 };
-        return Ok(recipe);
+    public async Task<ActionResult<Recipe>> Recipe(long id, CancellationToken token) {
+        var result = await _recipeService.GetById(id, token);
+        
+        return result is null ? NotFound() : Ok(result);
     }
 
     [HttpPost]
-    public IActionResult AddRecipe() {
-        return Ok(true);
+    public async Task<ActionResult<Recipe>> AddRecipe(RecipeCreationModel recipe, CancellationToken token) {
+        return Ok(await _recipeService.Add(recipe, token));
     }
 
     [HttpPut]
-    public IActionResult ChangeRecipe() {
-        var changedRecipe = new { Id = 1, Name = "Cappuccino", Milk = 3, Sugar = 5 };
-        return Ok(changedRecipe);
+    public async Task<ActionResult<Recipe>> ChangeRecipe(RecipeUpdateModel recipe, CancellationToken token) {
+        var result = await _recipeService.Update(recipe, token);
+        
+        return result is null ? NotFound() : Ok(result);
     }
 
     [HttpDelete]
-    public IActionResult DeleteRecipe() {
-        return Ok(true);
+    public async Task<ActionResult<Recipe>> DeleteRecipe(long id, CancellationToken token) {
+        var result = await _recipeService.Remove(id, token);
+        
+        return result is null ? NotFound() : Ok(result);
     }
 }
